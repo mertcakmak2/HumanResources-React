@@ -48,7 +48,6 @@ export default function EmployerList() {
                     </Table.Row>
                     ))}
                     
-
                 </Table.Body>
             </Table>
         </div>

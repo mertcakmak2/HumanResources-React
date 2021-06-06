@@ -15,7 +15,7 @@ export default function NavigationBar() {
                     </Menu.Menu>
 
                     <Menu.Item name="Ana Sayfa" />
-                    <Menu.Item name="İş lanları" />
+                    <Menu.Item name="İş İlanları" />
                     <Menu.Item name="İş Verenler" />
                     <Menu.Item name="İş Arayanlar" />
                     <Menu.Item name="İş İlanı Yayınla" />

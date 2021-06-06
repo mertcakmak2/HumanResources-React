@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid } from "semantic-ui-react";
 import EmployerList from '../pages/EmployerList';
+import JobSeekerList from '../pages/JobSeekerList';
 
 
 export default function Dashboard() {
@@ -14,24 +15,12 @@ export default function Dashboard() {
                     </Grid.Column>
                 </Grid.Row>
 
-                {/* <Grid.Row>
-                    <Grid.Column width={16}>
-                        <EmployerList></EmployerList>
-                    </Grid.Column>
-                </Grid.Row>
-
                 <Grid.Row>
                     <Grid.Column width={16}>
-                        <EmployerList></EmployerList>
+                        <JobSeekerList></JobSeekerList>
                     </Grid.Column>
                 </Grid.Row>
-
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <EmployerList></EmployerList>
-                    </Grid.Column>
-                </Grid.Row>
-                 */}
+                
             </Grid>
         </div>
     )
