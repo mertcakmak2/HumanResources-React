@@ -1,10 +1,15 @@
 import './App.css';
-import EmployerList from './pages/EmployerList';
+import Dashboard from './layouts/Dashboard';
+import NavigationBar from './layouts/NavigationBar';
+import { Container } from 'semantic-ui-react';
 
 function App() {
   return (
     <div className="App">
-     <EmployerList></EmployerList>
+      <NavigationBar></NavigationBar>
+      <Container className="main">
+        <Dashboard></Dashboard>
+      </Container> 
     </div>
   );
 }
