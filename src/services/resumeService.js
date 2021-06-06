@@ -1,11 +1,11 @@
 import axiosProvider from './axiosProvider';
 
-const LANGUAGE_URL = "http://localhost:5002/api/resume";
+const RESUME_URL = "http://localhost:5002/api/resume";
 
 export default class ResumeService {
 
     findAllResume() {
-        var url = LANGUAGE_URL;
+        var url = RESUME_URL;
 
         return new Promise((resolve) => {
             axiosProvider.getMethod(url).then(res => {
@@ -15,7 +15,7 @@ export default class ResumeService {
     }
 
     saveResume(data) {
-        var url = LANGUAGE_URL;
+        var url = RESUME_URL;
 
         return new Promise((resolve) => {
             axiosProvider.postMethod(url, data).then(res => {
@@ -25,7 +25,7 @@ export default class ResumeService {
     }
 
     setResumeProfilePicture(file, resumeId) {
-        var url = LANGUAGE_URL+"/profile-picture?resumeId="+resumeId;
+        var url = RESUME_URL+"/profile-picture?resumeId="+resumeId;
 
         return new Promise((resolve) => {
             axiosProvider.postMethod(url, file).then(res => {
