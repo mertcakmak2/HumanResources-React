@@ -1,8 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import JobSeekerService from "../services/jobSeekerService"
-import { Header, Image, Table } from 'semantic-ui-react'
+import NoData from '../commonComponents/NoDataComponent';
+import { Table} from 'antd';
 
 export default function JobSeekerList() {
+
+    const columns = [
+        {
+            title: 'Id',
+            dataIndex: 'id',
+            key: 'id',
+            render: text => <a>{text}</a>,
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Ad',
+            dataIndex: 'firstName',
+            key: 'firstName',
+        },
+        {
+            title: 'Soyad',
+            dataIndex: 'lastName',
+            key: 'lastName',
+        },
+        {
+            title: 'Telefon',
+            dataIndex: 'mobilePhone',
+            key: 'mobilePhone',
+        }
+    ]
 
     const [jobSeekers, setJobSeekers] = useState([])
 
@@ -17,33 +47,11 @@ export default function JobSeekerList() {
 
     return (
         <div>
-            <Table basic='very' celled collapsing>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>İş Arayan</Table.HeaderCell>
-                        <Table.HeaderCell>Telefon Numarası</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                    {jobSeekers.map(jobSeeker => (
-                        <Table.Row key={jobSeeker.id}>
-                            <Table.Cell>
-                                <Header as='h4' image>
-                                    <Image src='https://react.semantic-ui.com/images/avatar/small/lena.png' rounded size='mini' />
-                                    <Header.Content>
-                                        {jobSeeker.email}
-                                        <Header.Subheader>{jobSeeker.firstName + " " + jobSeeker.lastName}</Header.Subheader>
-                                    </Header.Content>
-                                </Header>
-                            </Table.Cell>
-                        
-                            <Table.Cell>{jobSeeker.mobilePhone}</Table.Cell>
-                        </Table.Row>
-                    ))}
-
-                </Table.Body>
-            </Table>
+            <h2>Job Seeker List</h2>
+            { jobSeekers.length 
+                ? <Table columns={columns} dataSource={jobSeekers} /> 
+                : <NoData/>    
+            }
         </div>
     )
 }

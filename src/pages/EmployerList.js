@@ -1,8 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import EmployerService from '../services/employerService'
-import { Header, Image, Table } from 'semantic-ui-react'
+import NoData from '../commonComponents/NoDataComponent';
+import { Table, Space} from 'antd';
 
 export default function EmployerList() {
+
+    const columns = [
+        {
+            title: 'Id',
+            dataIndex: 'id',
+            key: 'id',
+            render: text => <a>{text}</a>,
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Ad',
+            dataIndex: 'firstName',
+            key: 'firstName',
+        },
+        {
+            title: 'Soyad',
+            dataIndex: 'lastName',
+            key: 'lastName',
+        },
+        {
+            title: 'Telefon',
+            dataIndex: 'mobilePhone',
+            key: 'mobilePhone',
+        },
+        {
+            title: 'Aksiyon',
+            key: 'action',
+            render: (text, record) => (
+                <Space size="middle">
+                    <a>İletişim</a>
+                </Space>
+            ),
+        },
+    ];
 
     const [employers, setEmployers] = useState([])
 
@@ -10,46 +49,18 @@ export default function EmployerList() {
         let employerService = new EmployerService();
         employerService.findAllEmployers().then(response => {
             console.log(response);
-            if(response.status === 200 && response.data.success) 
+            if (response.status === 200 && response.data.success)
                 setEmployers(response.data.data)
         })
     }, [])
 
     return (
         <div>
-            <Table basic='very' celled collapsing>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>İş Veren</Table.HeaderCell>
-                        <Table.HeaderCell>Şirket</Table.HeaderCell>
-                        <Table.HeaderCell>Şirket Web Sitesi</Table.HeaderCell>
-                        <Table.HeaderCell>Telefon Numarası</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                    {employers.map(employer =>(
-                        <Table.Row key={employer.id}>
-                        <Table.Cell>
-                            <Header as='h4' image>
-                                <Image src='https://react.semantic-ui.com/images/avatar/small/lena.png' rounded size='mini' />
-                                <Header.Content>
-                                    {employer.email}
-                                <Header.Subheader>{employer.firstName + " " + employer.lastName}</Header.Subheader>
-                                </Header.Content>
-                            </Header>
-                        </Table.Cell>
-
-                        <Table.Cell>{employer.companyName}</Table.Cell>
-
-                        <Table.Cell>{employer.companyWebSite}</Table.Cell>
-
-                        <Table.Cell>{employer.mobilePhone}</Table.Cell>
-                    </Table.Row>
-                    ))}
-                    
-                </Table.Body>
-            </Table>
+            <h2>Employer List</h2>
+            { employers.length 
+                ? <Table columns={columns} dataSource={employers} /> 
+                : <NoData/>    
+            }
         </div>
     )
 }

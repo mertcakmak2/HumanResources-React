@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, Container, Menu, Input } from "semantic-ui-react";
 
-
 export default function NavigationBar() {
     return (
         <div>
