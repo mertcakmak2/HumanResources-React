@@ -1,32 +1,39 @@
-import React from 'react'
-import { Button, Container, Menu, Input } from "semantic-ui-react";
+import React, { useState } from 'react'
+import { Container, Menu, Input } from "semantic-ui-react";
+import SignedIn from './SignedIn';
+import SignedOut from './SignedOut';
 
 export default function NavigationBar() {
+
+    const [isAuthenticated, setIsAuthenticated] = useState(true)
+
+    function handleSignOut() {
+        setIsAuthenticated(false);
+    }
+
+    function handleSignIn() {
+        setIsAuthenticated(true);
+    }
+
     return (
         <div>
-            <Menu fixed="top">
+            <Menu pointing secondary>
                 <Container>
-                    
                     <Menu.Menu position="left">
                         <Menu.Item>
-                            <Input icon='search' iconPosition='left' placeholder='Kullanıcı ara...' />
+                            <Input style={{marginBottom:'1px'}} icon='search' iconPosition='left' placeholder='Kullanıcı ara...' />
                         </Menu.Item>
                     </Menu.Menu>
 
-                    <Menu.Item name="Ana Sayfa" />
+                    <Menu.Item active={true} name="Ana Sayfa" />
                     <Menu.Item name="İş İlanları" />
                     <Menu.Item name="İş Verenler" />
                     <Menu.Item name="İş Arayanlar" />
                     <Menu.Item name="İş İlanı Yayınla" />
 
                     <Menu.Menu position="right">
-                        <Menu.Item>
-                            <Button.Group>
-                                <Button>Login</Button>
-                                <Button.Or />
-                                <Button positive>Sign Up</Button>
-                            </Button.Group>
-                        </Menu.Item>
+
+                        {isAuthenticated ? <SignedIn signOut={handleSignOut}/> : <SignedOut signIn={handleSignIn}/>}
 
                     </Menu.Menu>
                 </Container>

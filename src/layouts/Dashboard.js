@@ -1,41 +1,25 @@
 import React from 'react'
-import { Grid } from "semantic-ui-react";
+import { Route } from 'react-router';
+import HomePage from '../pages/HomePage';
 import EmployerList from '../pages/EmployerList';
 import JobList from '../pages/JobList';
 import JobPositionList from '../pages/JobPositionList';
 import JobSeekerList from '../pages/JobSeekerList';
-
+import Login from '../pages/Login'
+import Register from '../pages/Register';
 
 export default function Dashboard() {
     return (
         <div>
-            <Grid>
-                
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <EmployerList></EmployerList>
-                    </Grid.Column>
-                </Grid.Row>
+            <Route exact path="/" component={HomePage} />
 
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <JobSeekerList></JobSeekerList>
-                    </Grid.Column>
-                </Grid.Row>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
 
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <JobPositionList></JobPositionList>
-                    </Grid.Column>
-                </Grid.Row>
-
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <JobList></JobList>
-                    </Grid.Column>
-                </Grid.Row>
-                
-            </Grid>
+            <Route path="/employer-list" component={EmployerList} />
+            <Route path="/job-list" component={JobList} />
+            <Route path="/job-position-list" component={JobPositionList} />
+            <Route path="/job-seeker-list" component={JobSeekerList} />
         </div>
     )
 }
