@@ -1,3 +1,7 @@
+# UML Component Diagram
+
+![Flowchart](https://user-images.githubusercontent.com/21373505/121326672-7342f500-c91b-11eb-9012-6486951a1f98.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
