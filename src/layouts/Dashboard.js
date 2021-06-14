@@ -2,11 +2,12 @@ import React from 'react'
 import { Route } from 'react-router';
 import HomePage from '../pages/HomePage';
 import EmployerList from '../pages/EmployerList';
-import JobList from '../pages/JobList';
+import JobList from '../pages/JobAnnounce/JobAnnounceList/JobAnnounceList';
 import JobPositionList from '../pages/JobPositionList';
 import JobSeekerList from '../pages/JobSeekerList';
 import Login from '../pages/Login'
 import Register from '../pages/Register';
+import JobAdd from '../pages/JobAnnounce/JobAnnounceAdd/JobAnnounceAdd';
 
 export default function Dashboard() {
     return (
@@ -20,6 +21,7 @@ export default function Dashboard() {
             <Route path="/job-list" component={JobList} />
             <Route path="/job-position-list" component={JobPositionList} />
             <Route path="/job-seeker-list" component={JobSeekerList} />
+            <Route path="/job-add" component={JobAdd} />
         </div>
     )
 }

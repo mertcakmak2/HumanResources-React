@@ -8,11 +8,11 @@ export default function Register() {
     return (
         <div>
             Register
-            {/* <ResultComponent 
+            <ResultComponent 
                 status="success" 
                 title="Kayıt işlemi başarı ile gerçekleştirildi."
                 subTitle="Artık insan kaynakları yönetim sistemine giriş yapabilirsiniz" 
-                firstButtonText="Giriş Yap"/> */}
+                firstButtonText="Giriş Yap"/>
         </div>
     )
 }

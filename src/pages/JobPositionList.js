@@ -30,7 +30,7 @@ export default function JobPositionList() {
     },[])
 
     return (
-        <div>
+        <div style={{textAlign:'center'}}>
             <h2>Job Position List</h2>
             { jobPositions.length 
                 ? <Table columns={columns} dataSource={jobPositions} /> 

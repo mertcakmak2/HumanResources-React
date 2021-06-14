@@ -55,7 +55,7 @@ export default function EmployerList() {
     }, [])
 
     return (
-        <div>
+        <div style={{textAlign:'center'}}>
             <h2>Employer List</h2>
             { employers.length 
                 ? <Table columns={columns} dataSource={employers} /> 

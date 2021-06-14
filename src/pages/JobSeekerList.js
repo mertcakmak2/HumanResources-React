@@ -46,7 +46,7 @@ export default function JobSeekerList() {
     }, [])
 
     return (
-        <div>
+        <div style={{textAlign:'center'}}>
             <h2>Job Seeker List</h2>
             { jobSeekers.length 
                 ? <Table columns={columns} dataSource={jobSeekers} /> 
