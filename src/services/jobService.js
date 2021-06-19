@@ -5,7 +5,7 @@ const JOBS_URL = "http://localhost:5002/api/job"
 export default class JobService {
 
     findAllActiveJobs() {
-        var url = JOBS_URL;
+        var url = JOBS_URL + "/findAllActiveJobs";
 
         return new Promise((resolve) => {
             axiosProvider.getMethod(url).then(res => {
