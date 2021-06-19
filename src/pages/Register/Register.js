@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import ResultComponent from '../commonComponents/ResultComponent'
+import ResultComponent from '../../commonComponents/ResultComponent'
 
 export default function Register() {
 

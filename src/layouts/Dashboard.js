@@ -5,8 +5,8 @@ import EmployerList from '../pages/EmployerList';
 import JobList from '../pages/JobAnnounce/JobAnnounceList/JobAnnounceList';
 import JobPositionList from '../pages/JobPositionList';
 import JobSeekerList from '../pages/JobSeekerList';
-import Login from '../pages/Login'
-import Register from '../pages/Register';
+import Login from '../pages/Login/Login'
+import Register from '../pages/Register/Register';
 import JobAdd from '../pages/JobAnnounce/JobAnnounceAdd/JobAnnounceAdd';
 
 export default function Dashboard() {
