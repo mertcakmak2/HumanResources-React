@@ -4,6 +4,16 @@ const RESUME_URL = "http://localhost:5002/api/resume";
 
 export default class ResumeService {
 
+    findByJobSeekerId(jobSeekerId) {
+        var url = RESUME_URL+"/"+jobSeekerId;
+
+        return new Promise((resolve) => {
+            axiosProvider.getMethod(url).then(res => {
+                resolve(res);
+            })
+        })
+    }
+
     findAllResume() {
         var url = RESUME_URL;
 

@@ -16,15 +16,9 @@ export default function NavigationBar() {
     }
 
     return (
-        <div>
+        <div style={{background:"white"}}>
             <Menu pointing secondary>
                 <Container>
-                    <Menu.Menu position="left">
-                        <Menu.Item>
-                            <Input style={{marginBottom:'1px'}} icon='search' iconPosition='left' placeholder='Kullanıcı ara...' />
-                        </Menu.Item>
-                    </Menu.Menu>
-
                     <Menu.Item active={true} name="Ana Sayfa" />
                     <Menu.Item name="İş İlanları" />
                     <Menu.Item name="İş Verenler" />

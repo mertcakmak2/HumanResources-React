@@ -13,4 +13,14 @@ export default class JobSeekerService {
             })
         })
     }
+
+    setProfilePicture(file, jobSeekerId) {
+        var url = JOB_SEEKER_URL + "/profile-picture?resumeId="+jobSeekerId;
+
+        return new Promise((resolve) => {
+            axiosProvider.fileUploadMethod(url,file).then(res => {
+                resolve(res);
+            })
+        })
+    }
 }

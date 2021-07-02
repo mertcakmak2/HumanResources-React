@@ -8,6 +8,7 @@ import JobSeekerList from '../pages/JobSeekerList';
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register';
 import JobAdd from '../pages/JobAnnounce/JobAnnounceAdd/JobAnnounceAdd';
+import Resume from '../pages/Resume/Resume';
 
 export default function Dashboard() {
     return (
@@ -22,6 +23,8 @@ export default function Dashboard() {
             <Route path="/job-position-list" component={JobPositionList} />
             <Route path="/job-seeker-list" component={JobSeekerList} />
             <Route path="/job-add" component={JobAdd} />
+            <Route path="/resume/:id" component={Resume} />
+           
         </div>
     )
 }

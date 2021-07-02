@@ -3,7 +3,7 @@ import ResultComponent from '../../commonComponents/ResultComponent'
 
 export default function Register() {
 
-    const [registerSuccess, setRegisterSuccess] = useState(false)
+    //const [registerSuccess, setRegisterSuccess] = useState(false)
     
     return (
         <div>

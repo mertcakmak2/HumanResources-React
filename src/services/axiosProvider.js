@@ -30,8 +30,27 @@ function deleteMethod(url) {
     })
 }
 
+function fileUploadMethod(url, file){
+    return new Promise((resolve) => {
+        const formData = new FormData();
+        formData.append('file', file)
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+    
+        axios.post(url, formData, config).then(response => {
+            resolve(response)
+        }).catch(error => {
+            resolve(error)
+        }) 
+    })
+}
+
 export default {
     getMethod,
     postMethod,
-    deleteMethod
+    deleteMethod,
+    fileUploadMethod
 }
