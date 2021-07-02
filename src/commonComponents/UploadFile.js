@@ -5,8 +5,7 @@ export default function UploadFile({ uploadButtonText, actionButtonText, uploadA
 
     const [file, setFile] = useState("")
 
-    function onUpload(e) {
-        e.preventDefault() // Stop form submit
+    function onUpload() {
         fileUpload(file);
     }
 
