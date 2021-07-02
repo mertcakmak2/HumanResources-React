@@ -5,7 +5,7 @@ export default function UploadFile({ uploadButtonText, actionButtonText, uploadA
 
     const [file, setFile] = useState("")
 
-    function onFormSubmit(e) {
+    function onUpload(e) {
         e.preventDefault() // Stop form submit
         fileUpload(file);
     }
@@ -22,7 +22,7 @@ export default function UploadFile({ uploadButtonText, actionButtonText, uploadA
     return (
         <div style={{display:"inline-grid"}}>
             <input type="file" onChange={onChange} />
-            <Button onClick={onFormSubmit} positive>Yükle</Button>
+            <Button onClick={onUpload} positive>Yükle</Button>
         </div>
     )
 }
