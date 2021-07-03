@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Button, Modal, Input } from 'antd';
 import { DeleteOutlined, EditOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons';
-import { useParams } from 'react-router-dom';
 import SkillService from '../../../services/skillService';
 import NoDataResult from '../../../commonComponents/NoDataResult';
+import Notification from '../../../commonComponents/Notification';
 import { useSelector } from 'react-redux';
 
 
 let skillService = new SkillService();
 
 export default function JobSeekerSkill() {
-    var { id } = useParams();
+
     const resume = useSelector(state => state.resume)
 
     const [skillList, setSkillList] = useState([])
@@ -20,8 +20,8 @@ export default function JobSeekerSkill() {
     const [modalProperties, setModalProperties] = useState({ title: "Yetenek Ekle", saveOperation: true })
 
     useEffect(() => {
-        findAllSkillByResumeId(id);
-    }, [])
+        if(resume.id) findAllSkillByResumeId(resume.id);
+    }, [resume])
 
     const columns = [
         {
@@ -48,8 +48,8 @@ export default function JobSeekerSkill() {
         },
     ];
 
-    const findAllSkillByResumeId = (id) => {
-        skillService.findAllSkillByResumeId(id).then(response => {
+    const findAllSkillByResumeId = (resumeId) => {
+        skillService.findAllSkillByResumeId(resumeId).then(response => {
             if (response.data && response.data.success && response.status === 200) {
                 response.data.data.map(x => x.key = x.id)
                 setSkillList(response.data.data)
@@ -70,7 +70,8 @@ export default function JobSeekerSkill() {
         }
         skillService.saveSkill(newSkill).then(response => {
             if (response.data.success && response.status === 201) {
-                findAllSkillByResumeId(id);
+                findAllSkillByResumeId(resume.id);
+                Notification.showNotification("success", "Yetenek", "Ekleme işlemi başarılı.");
                 setSkillName("");
                 hideModal();
             }
@@ -84,7 +85,8 @@ export default function JobSeekerSkill() {
     const deleteSkill = (skillId) => {
         skillService.deleteSkill(skillId).then(response => {
             if (response.data.success && response.status === 200) {
-                findAllSkillByResumeId(id);
+                findAllSkillByResumeId(resume.id);
+                Notification.showNotification("success", "Yetenek", "Silme işlemi başarılı.");
             }
         })
     }
@@ -100,7 +102,8 @@ export default function JobSeekerSkill() {
         var skill = Object.assign({}, selectedSkill, { skillName: skillName })
         skillService.updateSkill(skill).then(response => {
             if (response.data.success && response.status === 200) {
-                findAllSkillByResumeId(id);
+                Notification.showNotification("success", "Yetenek", "Düzenleme işlemi başarılı.");
+                findAllSkillByResumeId(resume.id);
                 hideModal();
             }
         })

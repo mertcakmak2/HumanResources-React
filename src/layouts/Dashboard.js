@@ -23,7 +23,7 @@ export default function Dashboard() {
             <Route path="/job-position-list" component={JobPositionList} />
             <Route path="/job-seeker-list" component={JobSeekerList} />
             <Route path="/job-add" component={JobAdd} />
-            <Route path="/resume/:id" component={Resume} />
+            <Route path="/job-seeker/:id/resume" component={Resume} />
            
         </div>
     )

@@ -24,27 +24,27 @@ export default function Resume() {
     var cardList = [
         {
             avatarSrc: "https://cdn3.iconfinder.com/data/icons/scenarium-vol-5/128/040_account_follow_profile_select-128.png",
-            link: "/resume/" + id + "/info",
+            link: "/job-seeker/" + id + "/resume/info",
             title: "Temel Bilgiler"
         },
         {
             avatarSrc: "https://cdn4.iconfinder.com/data/icons/business-risks-2/512/TalentManagement-talent-skill-genius-organization-256.png",
-            link: "/resume/" + id + "/skills",
+            link: "/job-seeker/" + id + "/resume/skills",
             title: "Yetenekler"
         },
         {
             avatarSrc: "https://cdn2.iconfinder.com/data/icons/leto-blue-online-education/64/__language_courses_translate_speak-128.png",
-            link: "/resume/" + id + "/languages",
+            link: "/job-seeker/" + id + "/resume/languages",
             title: "Yabancı Diller"
         },
         {
             avatarSrc: "https://cdn2.iconfinder.com/data/icons/product-1/200/testimonial-1--testimonial-PRODUCT-FEEDBACK-REVIEW-SATISFIED-EXPERIENCE-CUSTOMER-COMMENT-SHARE-READ-256.png",
-            link: "/resume/" + id + "/experiences",
+            link: "/job-seeker/" + id + "/resume/experiences",
             title: "Çalışma Geçmişi"
         },
         {
             avatarSrc: "https://cdn2.iconfinder.com/data/icons/leto-blue-online-education/64/__world_global_student_hat_education-512.png",
-            link: "/resume/" + id + "/schools",
+            link: "/job-seeker/" + id + "/resume/schools",
             title: "Eğitim Bilgileri"
         }
     ]

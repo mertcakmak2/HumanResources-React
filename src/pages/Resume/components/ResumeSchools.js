@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { Table, DatePicker, Button, Modal, Input, Checkbox } from 'antd';
 import { DeleteOutlined, EditOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons';
 import NoDataResult from '../../../commonComponents/NoDataResult';
+import Notification from '../../../commonComponents/Notification';
 import SchoolService from '../../../services/schoolService';
 import moment from 'moment';
 
@@ -11,7 +11,6 @@ let schoolService = new SchoolService();
 
 export default function ResumeSchools() {
 
-    var { id } = useParams();
     const resume = useSelector(state => state.resume)
 
     const [schoolList, setSchoolList] = useState([])
@@ -55,11 +54,11 @@ export default function ResumeSchools() {
     ];
 
     useEffect(() => {
-        findAllSchoolByResumeId(id);
-    }, [])
+        if(resume.id) findAllSchoolByResumeId(resume.id);
+    }, [resume])
 
-    const findAllSchoolByResumeId = (id) => {
-        schoolService.findAllSchoolByResumeId(id).then(response => {
+    const findAllSchoolByResumeId = (resumeId) => {
+        schoolService.findAllSchoolByResumeId(resumeId).then(response => {
             if (response.data && response.data.success && response.status === 200) {
                 response.data.data.map(x => x.key = x.id)
                 setSchoolList(response.data.data)
@@ -80,7 +79,8 @@ export default function ResumeSchools() {
         newSchool.resumeId = resume.id
         schoolService.saveSchool(newSchool).then(response => {
             if (response.data && response.data.success && response.status === 201) {
-                findAllSchoolByResumeId(id);
+                Notification.showNotification("success", "Eğitim Bilgisi", "Ekleme işlemi başarılı.");
+                findAllSchoolByResumeId(resume.id);
                 hideModal();
             }
         })
@@ -93,7 +93,8 @@ export default function ResumeSchools() {
     const deleteSchool = (schoolId) => {
         schoolService.deleteSchool(schoolId).then(response => {
             if (response.data && response.data.success && response.status === 200) {
-                findAllSchoolByResumeId(id);
+                Notification.showNotification("success", "Eğitim Bilgisi", "Silme işlemi başarılı.");
+                findAllSchoolByResumeId(resume.id);
                 hideModal();
             }
         })
@@ -108,7 +109,8 @@ export default function ResumeSchools() {
     const updateSchool = () => {
         schoolService.updateSchool(school).then(response => {
             if (response.data && response.data.success && response.status === 200) {
-                findAllSchoolByResumeId(id);
+                Notification.showNotification("success", "Eğitim Bilgisi", "Düzenleme işlemi başarılı.");
+                findAllSchoolByResumeId(resume.id);
                 hideModal();
             }
         })

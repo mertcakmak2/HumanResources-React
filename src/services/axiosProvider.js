@@ -5,7 +5,8 @@ function getMethod(url) {
         axios.get(url).then(response => {
             resolve(response);
         }).catch(error => {
-            resolve(error);
+            var err = {...error}
+            resolve(err.response);
         })
     })
 }
@@ -15,7 +16,8 @@ function postMethod(url, data) {
         axios.post(url, data).then(response => {
             resolve(response);
         }).catch(error => {
-            resolve(error);
+            var err = {...error}
+            resolve(err.response);
         })
     })
 }
@@ -25,7 +27,8 @@ function deleteMethod(url) {
         axios.delete(url).then(response => {
             resolve(response);
         }).catch(error => {
-            resolve(error);
+            var err = {...error}
+            resolve(err.response);
         })
     })
 }
@@ -43,7 +46,8 @@ function fileUploadMethod(url, file){
         axios.post(url, formData, config).then(response => {
             resolve(response)
         }).catch(error => {
-            resolve(error)
+            var err = {...error}
+            resolve(err.response);
         }) 
     })
 }

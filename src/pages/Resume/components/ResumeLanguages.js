@@ -1,67 +1,145 @@
-import React from 'react'
-import { Table, Tag, Button } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { Table, Button, Modal, Input, InputNumber } from 'antd';
+import { DeleteOutlined, EditOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons';
+import NoDataResult from '../../../commonComponents/NoDataResult';
+import Notification from '../../../commonComponents/Notification';
+import LanguageService from '../../../services/languageService';
 
-const columns = [
-    {
-        title: 'Dil',
-        key: 'languages',
-        dataIndex: 'languages',
-        render: languages => (
-            <>
-                {languages.map(language => {
-                    let color = language.length > 6 ? 'geekblue' : 'green';
-                    if (language === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={language}>
-                            {language.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
-    },
-    {
-        title:"Seviye",
-        key:"level",
-        dataIndex:"level"
-    },
-    {
-        title: '',
-        key: 'İşlemler',
-        render: (text, record) => (
-            <div>
-                <Button type="primary" danger shape="circle" icon={<DeleteOutlined />} />
-                <Button type="primary" shape="circle" icon={<EditOutlined />} style={{marginLeft:"5px"}} />
-            </div>
-        ),
-    },
-];
-
-const data = [
-    {
-        key: '1',
-        languages: ['ingilizce'],
-        level:3
-    },
-    {
-        key: '2',
-        languages: ['almanca'],
-        level:1
-    },
-    {
-        key: '3',
-        languages: ['ispanyolca'],
-        level:5
-    },
-];
+let languageService = new LanguageService();
 
 export default function ResumeLanguages() {
+
+    const resume = useSelector(state => state.resume)
+
+    const [languageList, setLanguageList] = useState([])
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [modalProperties, setModalProperties] = useState({ title: "Eğitim Bilgisi Ekle", saveOperation: true })
+    const [language, setLanguage] = useState({ languageName: "", languageLevel: "1" })
+
+    useEffect(() => {
+        if (resume.id) findAllLanguageByResumeId(resume.id);
+    }, [resume])
+
+    const findAllLanguageByResumeId = (resumeId) => {
+        languageService.findAllLanguageByResumeId(resumeId).then(response => {
+            if (response.data && response.data.success && response.status === 200) {
+                response.data.data.map(x => x.key = x.id)
+                setLanguageList(response.data.data)
+            }
+        })
+    }
+
+    const handleSaveLanguage = () => {
+        setModalProperties({ title: "Eğitim Bilgisi Ekle", saveOperation: true })
+        setLanguage({ languageName: "", languageLevel: "1" })
+        showModal();
+    }
+
+    const saveLanguage = () => {
+        language.resumeId = resume.id
+        languageService.saveLanguage(language).then(response => {
+            if (response.data && response.data.success && response.status === 201) {
+                findAllLanguageByResumeId(resume.id)
+                Notification.showNotification("success", "Yabancı Dil", "Ekleme işlemi başarılı.");
+                hideModal();
+            }
+        })
+    }
+
+    const handleUpdateLanguage = (language) => {
+        setModalProperties({ title: "Eğitim Bilgisi Ekle", saveOperation: false })
+        setLanguage(language);
+        showModal();
+    }
+
+    const updateLanguage = () => {
+        languageService.updateLanguage(language).then(response => {
+            if (response.data && response.data.success && response.status === 200) {
+                findAllLanguageByResumeId(resume.id);
+                Notification.showNotification("success", "Yabancı Dil", "Düzenleme işlemi başarılı.");
+                hideModal();
+            }
+        })
+    }
+
+    const handleDeleteLanguage = (languageId) => {
+        deleteLanguage(languageId);
+    }
+
+    const deleteLanguage = (languageId) => {
+        languageService.deleteLanguage(languageId).then(response => {
+            if (response.data && response.data.success && response.status === 200) {
+                findAllLanguageByResumeId(resume.id)
+                Notification.showNotification("success", "Yabancı Dil", "Silme işlemi başarılı.");
+            }
+        })
+    }
+
+    const onChangeLanguageName = (e) => {
+        setLanguage(Object.assign({}, language, { "languageName": e.target.value }))
+    }
+
+    const onChangeLanguageLevel = (e) => {
+        setLanguage(Object.assign({}, language, { "languageLevel": e }))
+    }
+
+    const hideModal = () => {
+        setIsModalVisible(false);
+    };
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const columns = [
+        {
+            title: 'Dil',
+            key: 'languageName',
+            dataIndex: 'languageName',
+        },
+        {
+            title: "Seviye",
+            key: "languageLevel",
+            dataIndex: "languageLevel"
+        },
+        {
+            title: '',
+            key: 'İşlemler',
+            render: (language) => (
+                <div>
+                    <Button onClick={() => handleDeleteLanguage(language.id)} type="primary" danger shape="circle" icon={<DeleteOutlined />} />
+                    <Button onClick={() => handleUpdateLanguage(language)} type="primary" shape="circle" icon={<EditOutlined />} style={{ marginLeft: "5px" }} />
+                </div>
+            ),
+        },
+    ];
+
     return (
         <div>
-            <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 400, y: 220 }} />
+            <div style={{ marginBottom: 16 }}>
+                <Button type="primary" onClick={handleSaveLanguage} icon={<PlusOutlined />}  >
+                    Yabancı Dil Ekle
+                </Button>
+            </div>
+            {languageList.length
+                ? <Table columns={columns} dataSource={languageList} pagination={false} scroll={{ x: 400, y: 220 }} />
+                : <NoDataResult title="404" status="404" buttonText="Yabancı Dil Ekle" description="Yabancı Dil Bulunamadı" onAction={showModal} />
+            }
+
+            <Modal centered title={modalProperties.saveOperation ? "Yabancı Dil Ekle" : "Yabancı Dil Güncelle"} visible={isModalVisible} onCancel={hideModal}
+                footer={[
+                    <Button type="primary" danger onClick={hideModal}>
+                        İptal
+                    </Button>,
+                    modalProperties.saveOperation
+                        ? <Button type="primary" onClick={saveLanguage} icon={<PlusOutlined />} style={{ marginLeft: "5px" }}> Kaydet </Button>
+                        : <Button type="primary" onClick={updateLanguage} icon={<RedoOutlined />} style={{ marginLeft: "5px" }}> Güncelle </Button>
+                ]}>
+                <Input value={language.languageName} placeholder="Yabancı dil adını giriniz..." onChange={onChangeLanguageName} />
+                <InputNumber value={language.languageLevel} min={1} max={5} defaultValue={1} onChange={onChangeLanguageLevel} style={{ marginTop: "1em" }} />
+            </Modal>
+
         </div>
     )
 }
