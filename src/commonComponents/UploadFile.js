@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Button } from 'semantic-ui-react'
+import { Button } from 'antd'
 
-export default function UploadFile({ uploadButtonText, actionButtonText, uploadAction }) {
+export default function UploadFile({ uploadButtonText, actionButtonText, uploadAction, previewAction }) {
 
     const [file, setFile] = useState("")
 
@@ -10,18 +10,28 @@ export default function UploadFile({ uploadButtonText, actionButtonText, uploadA
     }
 
     function onChange(e) {
-        setFile(e.target.files[0])
+        let selectedFile = e.target.files[0];
+        
+        setFile(selectedFile)
+
+        let reader = new FileReader();
+        reader.onloadend = () => {
+            previewAction(reader.result, selectedFile);
+        }
+        reader.readAsDataURL(selectedFile);
     }
 
     function fileUpload() {
         uploadAction(file)
     }
 
-
     return (
-        <div style={{display:"inline-grid"}}>
+        <div>
             <input type="file" onChange={onChange} />
-            <Button onClick={onUpload} positive>Yükle</Button>
+            { uploadAction ? <Button onClick={onUpload} type="dashed" danger >
+                {actionButtonText}
+            </Button> : null
+            }
         </div>
     )
 }

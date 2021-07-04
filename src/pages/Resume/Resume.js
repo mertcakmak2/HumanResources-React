@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useParams, useRouteMatch, Switch, Route } from 'react-router-dom'
-import ResumeInfos from './components/ResumeInfos';
-import ResumeSkills from './components/ResumeSkills';
-import ResumeLanguages from './components/ResumeLanguages';
-import ResumeExperiences from './components/ResumeExperiences';
-import ResumeSchools from './components/ResumeSchools';
+import ResumeInfos from './nestedPages/ResumeInfos';
+import ResumeSkills from './nestedPages/ResumeSkills';
+import ResumeLanguages from './nestedPages/ResumeLanguages';
+import ResumeExperiences from './nestedPages/ResumeExperiences';
+import ResumeSchools from './nestedPages/ResumeSchools';
 import { Grid, Segment } from 'semantic-ui-react'
 import { Card, Avatar } from 'antd';
 import ResumeService from '../../services/resumeService';
@@ -20,6 +20,7 @@ export default function Resume() {
 
     let { id } = useParams();
     let { path } = useRouteMatch();
+
 
     var cardList = [
         {
@@ -60,41 +61,43 @@ export default function Resume() {
     }, [])
 
     return (
+        <div>
+            <Grid columns={2} >
+                <Grid.Row >
+                    <Grid.Column width={5}>
+                        {cardList.map((card) => (
+                            <Link to={card.link} key={card.link}>
+                                <Card size="small" hoverable={true} style={{ width: 260, marginTop: 16 }} >
+                                    <Meta
+                                        avatar={
+                                            <Avatar src={card.avatarSrc} />
+                                        }
+                                        title={card.title}
+                                    />
+                                </Card>
+                            </Link>
+                        ))}
 
-        <Grid columns={2} >
-            <Grid.Row >
-                <Grid.Column width={5}>
-                    {cardList.map((card) => (
-                        <Link to={card.link} key={card.link}>
-                            <Card size="small" hoverable={true} style={{ width: 260, marginTop: 16 }} >
-                                <Meta
-                                    avatar={
-                                        <Avatar src={card.avatarSrc} />
-                                    }
-                                    title={card.title}
-                                />
-                            </Card>
-                        </Link>
-                    ))}
+                    </Grid.Column>
 
-                </Grid.Column>
+                    <Grid.Column width={11} >
+                        <Segment>
+                            <Switch>
+                                <Route exact path={path}>
+                                    <ResumeInfos />
+                                </Route>
 
-                <Grid.Column width={11} >
-                    <Segment>
-                        <Switch>
-                            <Route exact path={path}>
-                                <ResumeInfos />
-                            </Route>
+                                <Route path={path + "/info"} component={ResumeInfos} />
+                                <Route path={path + "/skills"} component={ResumeSkills} />
+                                <Route path={path + "/languages"} component={ResumeLanguages} />
+                                <Route path={path + "/experiences"} component={ResumeExperiences} />
+                                <Route path={path + "/schools"} component={ResumeSchools} />
+                            </Switch>
+                        </Segment>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        </div>
 
-                            <Route path={path + "/info"} component={ResumeInfos} />
-                            <Route path={path + "/skills"} component={ResumeSkills} />
-                            <Route path={path + "/languages"} component={ResumeLanguages} />
-                            <Route path={path + "/experiences"} component={ResumeExperiences} />
-                            <Route path={path + "/schools"} component={ResumeSchools} />
-                        </Switch>
-                    </Segment>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
     )
 }

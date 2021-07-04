@@ -5,7 +5,7 @@ const RESUME_URL = "http://localhost:5002/api/resume";
 export default class ResumeService {
 
     findByJobSeekerId(jobSeekerId) {
-        var url = RESUME_URL+"/"+jobSeekerId;
+        var url = RESUME_URL + "/" + jobSeekerId;
 
         return new Promise((resolve) => {
             axiosProvider.getMethod(url).then(res => {
@@ -34,13 +34,15 @@ export default class ResumeService {
         })
     }
 
-    setResumeProfilePicture(file, resumeId) {
-        var url = RESUME_URL+"/profile-picture?resumeId="+resumeId;
+    updateResume(data) {
+        var url = RESUME_URL+"/update";
 
         return new Promise((resolve) => {
-            axiosProvider.postMethod(url, file).then(res => {
+            axiosProvider.postMethod(url, data).then(res => {
                 resolve(res);
             })
         })
     }
+
+
 }
