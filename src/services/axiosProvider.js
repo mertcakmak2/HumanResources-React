@@ -6,7 +6,7 @@ function getMethod(url) {
             resolve(response);
         }).catch(error => {
             var err = {...error}
-            resolve(err.response);
+            resolve(exceptionHandler(err));
         })
     })
 }
@@ -17,7 +17,7 @@ function postMethod(url, data) {
             resolve(response);
         }).catch(error => {
             var err = {...error}
-            resolve(err.response);
+            resolve(exceptionHandler(err));
         })
     })
 }
@@ -28,7 +28,7 @@ function deleteMethod(url) {
             resolve(response);
         }).catch(error => {
             var err = {...error}
-            resolve(err.response);
+            resolve(exceptionHandler(err));
         })
     })
 }
@@ -47,9 +47,18 @@ function fileUploadMethod(url, file){
             resolve(response)
         }).catch(error => {
             var err = {...error}
-            resolve(err.response);
+            resolve(exceptionHandler(err));
         }) 
     })
+}
+
+function exceptionHandler(error) {
+    if(error.response) return error.response
+    
+    return {
+        success:false,
+        message:"Sunucuyla bağlantı kurulamadı."
+    }
 }
 
 export default {
