@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link, useParams, useRouteMatch, Switch, Route } from 'react-router-dom'
 import ResumeInfos from './nestedPages/ResumeInfos';
 import ResumeSkills from './nestedPages/ResumeSkills';

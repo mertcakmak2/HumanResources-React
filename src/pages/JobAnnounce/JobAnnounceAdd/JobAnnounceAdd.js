@@ -47,7 +47,7 @@ export default function JobAdd() {
             cityService.findAllCities(),
             workingConceptService.findAllWorkingConcepts()
         ]).then(result => {
-            if (result[0].status === 200 && result[1].status === 200 && result[2].status === 200, result[3].status === 200) {
+            if (result[0].status === 200 && result[1].status === 200 && result[2].status === 200 && result[3].status === 200) {
                 setJobTypes(result[0].data.data);
                 setjobPositions(result[1].data.data)
                 setCities(result[2].data.data)
@@ -72,10 +72,10 @@ export default function JobAdd() {
         onSubmit: values => {
             var jobAnnounce = {
                 "announceDate": new Date(),
-                "jobPosition": jobPositions.find(p => p.id == values.jobPosition),
-                "jobType": jobTypes.find(t => t.id == values.jobType),
-                "workingConcept": workingConcepts.find(c => c.id == values.workingConcept),
-                "city": cities.find(c => c.id == values.city),
+                "jobPosition": jobPositions.find(p => p.id === values.jobPosition),
+                "jobType": jobTypes.find(t => t.id === values.jobType),
+                "workingConcept": workingConcepts.find(c => c.id === values.workingConcept),
+                "city": cities.find(c => c.id === values.city),
                 "employer": {
                     "id": 2,
                     "email": "admin2@gmail.com",

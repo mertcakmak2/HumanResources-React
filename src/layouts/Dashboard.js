@@ -9,6 +9,7 @@ import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register';
 import JobAdd from '../pages/JobAnnounce/JobAnnounceAdd/JobAnnounceAdd';
 import Resume from '../pages/Resume/Resume';
+import SystemUserInfo from '../pages/SystemUser/SystemUserInfo';
 
 export default function Dashboard() {
     return (
@@ -19,11 +20,17 @@ export default function Dashboard() {
             <Route path="/register" component={Register} />
 
             <Route path="/employer-list" component={EmployerList} />
-            <Route path="/job-list" component={JobList} />
-            <Route path="/job-position-list" component={JobPositionList} />
-            <Route path="/job-seeker-list" component={JobSeekerList} />
+
             <Route path="/job-add" component={JobAdd} />
+            <Route path="/job-list" component={JobList} />
+
+            <Route path="/job-position-list" component={JobPositionList} />
+
+            <Route path="/job-seeker-list" component={JobSeekerList} />
             <Route path="/job-seeker/:id/resume" component={Resume} />
+
+            <Route path="/system-user/:id" component={SystemUserInfo} />
+
            
         </div>
     )

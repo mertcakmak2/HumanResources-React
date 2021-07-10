@@ -54,4 +54,17 @@ export default class JobService {
         })
     }
 
+    findByCityIdAndJobTypeIdWithPageable(filter){
+        var url = JOBS_URL+"/findByCityIdAndJobTypeId"
+
+        if(!filter.cityId.length) filter = {...filter, cityId:null};
+        if(!filter.jobTypeId.length) filter = {...filter, jobTypeId:null};   
+        return new Promise((resolve) => {
+            axiosProvider.postMethod(url, filter).then(res => {
+                resolve(res);
+            })
+        })
+    }
+
+
 }

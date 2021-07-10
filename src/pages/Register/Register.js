@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import ResultComponent from '../../commonComponents/ResultComponent'
 
 export default function Register() {

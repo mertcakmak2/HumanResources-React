@@ -30,8 +30,9 @@ export default function JobSeekerInfo() {
     }
 
     const handleUpdateResume = () => {
-        if (newProfilePicture) var request = [updateResume(), updateProfilePicture()]
-        else var request = [updateResume()]
+        var request = []
+        if (newProfilePicture) request = [updateResume(), updateProfilePicture()]
+        else request = [updateResume()]
         Promise.all(request).then(response => {
             findResumeByJobSeekerId();
             hideModal();

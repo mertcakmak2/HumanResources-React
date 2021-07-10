@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Menu, Input } from "semantic-ui-react";
+import { Container, Menu } from "semantic-ui-react";
 import SignedIn from './SignedIn';
 import SignedOut from './SignedOut';
 

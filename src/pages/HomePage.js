@@ -1,5 +1,4 @@
-import React, {useState} from 'react'
-import JobSeekerService from '../services/jobSeekerService';
+import React from 'react'
 
 export default function HomePage() {
 
