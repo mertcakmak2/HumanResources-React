@@ -20,7 +20,7 @@ export default function JobAnnounceList() {
         findByCityIdAndJobTypeIdWithPageable(filter).then(response => {
             if (response.status === 200 && response.data.success) {
                 setJobs(response.data.data);
-                setTotal(response.data.data.length)
+                setTotal(response.data.totalData)
             }
         })
     }, [filter])

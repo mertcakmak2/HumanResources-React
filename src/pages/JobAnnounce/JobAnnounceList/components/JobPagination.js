@@ -4,7 +4,7 @@ import { Pagination } from 'antd'
 export default function JobPagination({onChangePageable, total}) {
 
     const onChange = (page, size) => {
-        onChangePageable(page, size);
+        onChangePageable(page-1, size);
     }
     
     return (

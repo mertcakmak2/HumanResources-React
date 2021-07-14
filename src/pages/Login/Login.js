@@ -54,7 +54,7 @@ export default function Login() {
 
                             <Form.Item>
                                 <Button type="primary" className="login-form-button"> Giriş Yap </Button>
-                                    veya <a href="">Hemen kaydol!</a>
+                                veya <a href="">Hemen kaydol!</a>
                             </Form.Item>
                         </Form>
                     </Card.Content>
