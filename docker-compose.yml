@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  reacthrms:
+    container_name: reacthrms
+    build: .
+    ports:
+      - 80:80
+      - 443:443
