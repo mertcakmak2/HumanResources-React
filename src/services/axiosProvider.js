@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 function getMethod(url) {
+    url = setHost(url)
     return new Promise(resolve => {
         axios.get(url).then(response => {
             resolve(response);
@@ -12,6 +13,7 @@ function getMethod(url) {
 }
 
 function postMethod(url, data) {
+    url = setHost(url)
     return new Promise(resolve => {
         axios.post(url, data).then(response => {
             resolve(response);
@@ -23,6 +25,7 @@ function postMethod(url, data) {
 }
 
 function deleteMethod(url) {
+    url = setHost(url)
     return new Promise(resolve => {
         axios.delete(url).then(response => {
             resolve(response);
@@ -34,6 +37,7 @@ function deleteMethod(url) {
 }
 
 function fileUploadMethod(url, file){
+    url = setHost(url)
     return new Promise((resolve) => {
         const formData = new FormData();
         formData.append('file', file)
@@ -59,6 +63,10 @@ function exceptionHandler(error) {
         success:false,
         message:"Sunucuyla bağlantı kurulamadı."
     }
+}
+
+function setHost(host) {
+    return host.replace("localhost:5002", window.location.host)
 }
 
 export default {
