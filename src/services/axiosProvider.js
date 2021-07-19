@@ -66,7 +66,7 @@ function exceptionHandler(error) {
 }
 
 function setHost(host) {
-    return host.replace("localhost:5002", window.location.host)
+    return host.replace("localhost", window.location.host)
 }
 
 export default {
