@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: react-hrms
+    image: react-hrms
+    build:
+      context: .
+      target: production
