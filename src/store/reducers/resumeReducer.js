@@ -1,9 +1,7 @@
 import { SET_RESUME } from "../actions/resumeActions";
 import { resume } from "../initialValues/resumeInitialValues";
 
-const initalState = {
-    resume: resume,
-}
+const initalState = resume
 
 export default function resumeReducer(state = initalState, { type, payload }) {
     switch (type) {
@@ -11,6 +9,6 @@ export default function resumeReducer(state = initalState, { type, payload }) {
             //return Object.assign({}, payload);
             return {...payload};
         default: 
-            return {};
+            return state;
     }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import EmployerService from '../services/employerService'
 import NoData from '../commonComponents/NoDataComponent';
-import { Table, Space} from 'antd';
+import { Table, Space, Button } from 'antd';
 
 export default function EmployerList() {
 
@@ -37,7 +37,7 @@ export default function EmployerList() {
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <a>İletişim</a>
+                    <Button type="link">İletişim</Button>
                 </Space>
             ),
         },
@@ -55,11 +55,11 @@ export default function EmployerList() {
     }, [])
 
     return (
-        <div style={{textAlign:'center'}}>
+        <div style={{ textAlign: 'center' }}>
             <h2>Employer List</h2>
-            { employers.length 
-                ? <Table columns={columns} dataSource={employers} /> 
-                : <NoData/>    
+            {employers.length
+                ? <Table columns={columns} dataSource={employers} />
+                : <NoData />
             }
         </div>
     )

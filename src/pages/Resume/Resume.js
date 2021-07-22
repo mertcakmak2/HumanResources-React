@@ -6,21 +6,24 @@ import ResumeLanguages from './nestedPages/ResumeLanguages';
 import ResumeExperiences from './nestedPages/ResumeExperiences';
 import ResumeSchools from './nestedPages/ResumeSchools';
 import { Grid, Segment } from 'semantic-ui-react'
-import { Card, Avatar } from 'antd';
+import { Card, Avatar, Typography } from 'antd';
 import ResumeService from '../../services/resumeService';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setResume } from '../../store/actions/resumeActions';
 
 let { Meta } = Card;
+const { Title } = Typography;
+
 let resumeService = new ResumeService();
 
 export default function Resume() {
 
     const dispatch = useDispatch();
 
+    const resume = useSelector(state => state.resume)
+
     let { id } = useParams();
     let { path } = useRouteMatch();
-
 
     var cardList = [
         {
@@ -65,6 +68,18 @@ export default function Resume() {
             <Grid columns={2} >
                 <Grid.Row >
                     <Grid.Column width={5}>
+
+                        <Card size="small" style={{ width: 260 }} >
+                            {
+                                resume?.jobSeeker
+                                    ? <>
+                                        <Title level={2}>{resume?.jobSeeker?.firstName + " " + resume?.jobSeeker?.lastName}</Title>
+                                        <Title level={5}>{resume?.jobSeeker?.email}</Title>
+                                    </>
+                                    : null
+                            }
+                        </Card>
+
                         {cardList.map((card) => (
                             <Link to={card.link} key={card.link}>
                                 <Card size="small" hoverable={true} style={{ width: 260, marginTop: 16 }} >

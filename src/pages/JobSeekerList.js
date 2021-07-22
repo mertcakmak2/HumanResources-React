@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import JobSeekerService from "../services/jobSeekerService"
 import NoData from '../commonComponents/NoDataComponent';
-import { Table} from 'antd';
+import { Table, Space, Button} from 'antd';
+import { useHistory } from 'react-router-dom';
 
 export default function JobSeekerList() {
+
+    const history = useHistory();
 
     const columns = [
         {
@@ -31,10 +34,23 @@ export default function JobSeekerList() {
             title: 'Telefon',
             dataIndex: 'mobilePhone',
             key: 'mobilePhone',
-        }
+        },
+        {
+            title: 'Aksiyon',
+            key: 'action',
+            render: (jobSeeker) => (
+                <Space size="middle">
+                    <Button onClick={() => displayJobSeeker(jobSeeker.id)} type="link">İletişim</Button>
+                </Space>
+            ),
+        },
     ]
 
     const [jobSeekers, setJobSeekers] = useState([])
+
+    function displayJobSeeker(jobSeekerId){
+        history.push("/job-seeker/"+jobSeekerId+"/resume")
+    }
 
     useEffect(() => {
         let jobSeekersService = new JobSeekerService();
@@ -46,11 +62,11 @@ export default function JobSeekerList() {
     }, [])
 
     return (
-        <div style={{textAlign:'center'}}>
+        <div style={{ textAlign: 'center' }}>
             <h2>Job Seeker List</h2>
-            { jobSeekers.length 
-                ? <Table columns={columns} dataSource={jobSeekers} /> 
-                : <NoData/>    
+            {jobSeekers.length
+                ? <Table columns={columns} dataSource={jobSeekers} />
+                : <NoData />
             }
         </div>
     )
