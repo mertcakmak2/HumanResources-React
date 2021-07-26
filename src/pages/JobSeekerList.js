@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import JobSeekerService from "../services/jobSeekerService"
 import NoData from '../commonComponents/NoDataComponent';
-import { Table, Space, Button} from 'antd';
+import { Table, Space, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 export default function JobSeekerList() {
@@ -13,7 +13,7 @@ export default function JobSeekerList() {
             title: 'Id',
             dataIndex: 'id',
             key: 'id',
-            render: text => <a>{text}</a>,
+            // render: text => <a>{text}</a>,
         },
         {
             title: 'Email',
@@ -48,16 +48,17 @@ export default function JobSeekerList() {
 
     const [jobSeekers, setJobSeekers] = useState([])
 
-    function displayJobSeeker(jobSeekerId){
-        history.push("/job-seeker/"+jobSeekerId+"/resume")
+    function displayJobSeeker(jobSeekerId) {
+        history.push("/job-seeker/" + jobSeekerId + "/resume")
     }
 
     useEffect(() => {
         let jobSeekersService = new JobSeekerService();
         jobSeekersService.findAllJobSeekers().then(response => {
-            console.log(response);
-            if (response.status === 200 && response.data.success)
+            if (response.status === 200 && response.data.success) {
+                response.data.data.map(x => x.key = x.id)
                 setJobSeekers(response.data.data)
+            }
         })
     }, [])
 

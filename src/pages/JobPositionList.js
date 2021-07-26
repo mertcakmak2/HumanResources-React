@@ -10,7 +10,7 @@ export default function JobPositionList() {
             title: 'Id',
             dataIndex: 'id',
             key: 'id',
-            render: text => <a>{text}</a>,
+            // render: text => <a>{text}</a>,
         },
         {
             title: 'Pozisyon',

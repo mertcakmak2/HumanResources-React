@@ -14,6 +14,16 @@ export default class JobSeekerService {
         })
     }
 
+    findJobSeekerByEmail(email) {
+        var url = JOB_SEEKER_URL+"/"+email;
+
+        return new Promise((resolve) => {
+            axiosProvider.getMethod(url).then(res => {
+                resolve(res);
+            })
+        })
+    }
+
     setProfilePicture(file, jobSeekerId) {
         var url = JOB_SEEKER_URL + "/profile-picture?resumeId="+jobSeekerId;
 

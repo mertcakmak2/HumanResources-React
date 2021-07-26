@@ -191,7 +191,7 @@ export default function JobAdd() {
             </Form.Item>
 
             <Form.Item>
-                <Button onClick={formik.handleSubmit} type="primary" className="login-form-button"> İlanı Ver </Button>
+                <Button disabled={true} onClick={formik.handleSubmit} type="primary" className="login-form-button"> İlanı Ver </Button>
             </Form.Item>
 
             {/* <Form.Item

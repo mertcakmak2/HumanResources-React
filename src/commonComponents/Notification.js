@@ -7,6 +7,4 @@ function showNotification(type = "success", title, description) {
     });
 }
 
-export default {
-    showNotification
-}
+export default showNotification

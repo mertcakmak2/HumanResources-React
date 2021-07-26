@@ -14,4 +14,14 @@ export default class EmployerService {
         })
     }
 
+    findEmployerByEmail(email) {
+        var url = EMPLOYERS_URL+"/"+email; 
+
+        return new Promise((resolve) => {
+            axiosProvider.getMethod(url).then(res => {
+                resolve(res);
+            })
+        })
+    }
+
 }

@@ -51,7 +51,7 @@ export default function JobFilter({handleFilter}) {
                 Filtrele
             </Button>
 
-            <Button style={{marginLeft:"5px"}} onClick={onClearFilters} type="primary" icon={<ClearOutlined />}>
+            <Button style={{marginLeft:"5px"}} onClick={onClearFilters} danger icon={<ClearOutlined />}>
                 Filtreleri Temizle
             </Button>
         </div>

@@ -11,7 +11,7 @@ import { Result, Button } from 'antd';
  * @param {string} secondButtonToPath
  */
 export default function ResultComponent(
-    { status, title, subTitle, firstButtonText, firstButtonToPath, secondButtonText, secondButtonToPath }) {
+    { status, title, subTitle, firstButtonText, firstButtonAction, secondButtonText, secondButtonAction }) {
     return (
         <div>
             <Result
@@ -19,10 +19,10 @@ export default function ResultComponent(
                 title={title}
                 subTitle={subTitle}
                 extra={[
-                    <Button type="primary" key="console">
+                    <Button type="primary" key="first" onClick={firstButtonAction}>
                         {firstButtonText}
                     </Button>,
-                    <Button key="buy">{secondButtonText}</Button>,
+                    <Button key="second">{secondButtonText}</Button>,
                 ]}
             />
         </div>

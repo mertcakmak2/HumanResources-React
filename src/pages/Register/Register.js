@@ -1,18 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ResultComponent from '../../commonComponents/ResultComponent'
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 export default function Register() {
 
-    //const [registerSuccess, setRegisterSuccess] = useState(false)
+    const history = useHistory();
+    const isAuthenticate = useSelector(state => state.isAuthenticate)
+
+    useEffect(() => {
+        if(isAuthenticate) history.push("/");
+    })
     
     return (
         <div>
             Register
-            <ResultComponent 
+            {/* <ResultComponent 
                 status="success" 
                 title="Kayıt işlemi başarı ile gerçekleştirildi."
                 subTitle="Artık insan kaynakları yönetim sistemine giriş yapabilirsiniz" 
-                firstButtonText="Giriş Yap"/>
+                firstButtonText="Giriş Yap"/> */}
         </div>
     )
 }

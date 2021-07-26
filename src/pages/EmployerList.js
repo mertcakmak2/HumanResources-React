@@ -10,7 +10,7 @@ export default function EmployerList() {
             title: 'Id',
             dataIndex: 'id',
             key: 'id',
-            render: text => <a>{text}</a>,
+            // render: text => <a>{text}</a>,
         },
         {
             title: 'Email',
@@ -48,9 +48,10 @@ export default function EmployerList() {
     useEffect(() => {
         let employerService = new EmployerService();
         employerService.findAllEmployers().then(response => {
-            console.log(response);
-            if (response.status === 200 && response.data.success)
+            if (response.status === 200 && response.data.success){
+                response.data.data.map(x => x.key = x.id)
                 setEmployers(response.data.data)
+            }
         })
     }, [])
 
