@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 import { Suspense } from 'react';
 import { Spin } from 'antd';
+import PrivateRoute from '../privateRoute/PrivateRoute';
 
 const EmployerList = React.lazy(() => import("../pages/EmployerList"))
 const JobList = React.lazy(() => import("../pages/JobAnnounce/JobAnnounceList/JobAnnounceList"))
@@ -21,28 +22,61 @@ export default function Dashboard() {
         <div>
             <Suspense fallback={<Spin spinning={true} delay={500}> </Spin>} >
                 <Switch>
-                    <Route exact path="/" component={HomePage} />
-
+                    
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
-
                     <Route path="/account" component={Account} />
 
-                    <Route path="/employer-list" component={EmployerList} />
+                    {/* Authenticate Required */}
+                    <PrivateRoute exact path="/">
+                        <HomePage />
+                    </PrivateRoute>
 
-                    <Route path="/job-add" component={JobAdd} />
-                    <Route path="/job-list" component={JobList} />
+                    <PrivateRoute path="/employer-list">
+                        <EmployerList />
+                    </PrivateRoute>
 
-                    <Route path="/job-position-list" component={JobPositionList} />
+                    <PrivateRoute path="/job-add">
+                        <JobAdd />
+                    </PrivateRoute>
 
-                    <Route path="/job-seeker-list" component={JobSeekerList} />
-                    <Route path="/job-seeker/:id/resume" component={Resume} />
+                    <PrivateRoute path="/job-list">
+                        <JobList />
+                    </PrivateRoute>
 
-                    <Route path="/system-user/:id" component={SystemUserInfo} />
+                    <PrivateRoute path="/job-position-list">
+                        <JobPositionList />
+                    </PrivateRoute>
+
+                    <PrivateRoute path="/job-seeker-list">
+                        <JobSeekerList />
+                    </PrivateRoute>
+
+                    <PrivateRoute path="/job-seeker/:id/resume">
+                        <Resume />
+                    </PrivateRoute>
+
+                    <PrivateRoute path="/system-user/:id">
+                        <SystemUserInfo />
+                    </PrivateRoute>
 
                     <Route path="*">
                         <NotFound />
                     </Route>
+
+                    {/* <Route path="/job-add" component={JobAdd} /> */}
+                    {/* <Route path="/job-list" component={JobList} /> */}
+
+                    {/* <Route path="/job-position-list" component={JobPositionList} /> */}
+
+                    {/* <Route path="/employer-list" component={EmployerList} /> */}
+
+                    {/* <Route path="/job-seeker-list" component={JobSeekerList} /> */}
+                    {/* <Route path="/job-seeker/:id/resume" component={Resume} /> */}
+
+                    {/* <Route path="/system-user/:id" component={SystemUserInfo} /> */}
+
+
                 </Switch>
 
             </Suspense>
