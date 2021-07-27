@@ -36,6 +36,7 @@ export default function Login() {
 
         authService.login(loginInfo).then(response => {
             if (response.data && response.status === 200) {
+                localStorage.setItem("jwt", response.data)
                 var getUser = loginInfo.type === "employer"
                     ? employerService.findEmployerByEmail(loginInfo.email)
                     : jobSeekerService.findJobSeekerByEmail(loginInfo.email);
@@ -43,9 +44,13 @@ export default function Login() {
                     if (userResponse.data.success && userResponse.status === 200) {
                         dispatch(setAuthenticate(true))
                         dispatch(setUser(userResponse.data.data))
-                        localStorage.setItem("user", JSON.stringify({...userResponse.data.data, userType:loginInfo.type}))
-                        history.push("/")
-                    } else setLoginError(true)
+                        localStorage.setItem("user", JSON.stringify({ ...userResponse.data.data, userType: loginInfo.type }))
+                        history.push(localStorage.getItem("hash") ? localStorage.getItem("hash") : "/")
+                        localStorage.removeItem("hash")
+                    } else {
+                        localStorage.removeItem("jwt")
+                        setLoginError(true)
+                    }
                 })
             } else setLoginError(true);
         })

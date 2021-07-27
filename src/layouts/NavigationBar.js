@@ -34,6 +34,7 @@ export default function NavigationBar() {
 
     function onNavigate(route) {
         setActiveMenuItem(route);
+        if(!isAuthenticated) localStorage.setItem("hash", route);
         history.push(route);
     }
 

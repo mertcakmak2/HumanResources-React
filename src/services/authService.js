@@ -9,12 +9,12 @@ export default class AuthService {
 
         return new Promise((resolve) => {
             axiosProvider.postMethod(url, { email, password }).then(response => {
-                if (response.data && response.status === 200) localStorage.setItem("jwt", response.data)
+                if (response.data && response.status === 200) resolve(response);
                 else {
                     localStorage.removeItem("jwt")
                     localStorage.removeItem("user")
+                    resolve(response) // will return jwt
                 }
-                resolve(response) // will return jwt
             })
         })
     }
