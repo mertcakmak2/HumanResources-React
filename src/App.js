@@ -5,24 +5,32 @@ import NavigationBar from './layouts/NavigationBar';
 import { Container } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { setAuthenticate } from './store/actions/authenticateActions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
 
   const dispatch = useDispatch();
 
+  const [render, setRender] = useState(false)
+
   useEffect(() => {
     var jwt = localStorage.getItem("jwt");
     //var decodedJwt = jwtDecode(jwt);
     if (jwt) dispatch(setAuthenticate(true))
+    setRender(true)
   }, [])
 
   return (
     <div className="App">
-      <NavigationBar></NavigationBar>
-      <Container className="main">
-        <Dashboard></Dashboard>
-      </Container>
+      {render
+        ? <>
+          <NavigationBar></NavigationBar>
+          <Container className="main">
+            <Dashboard></Dashboard>
+          </Container>
+        </>
+        : null
+      }
     </div>
   );
 }
