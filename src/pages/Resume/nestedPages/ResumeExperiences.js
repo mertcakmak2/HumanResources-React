@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Table, Button, Modal, DatePicker, Checkbox, Input } from 'antd';
 import { DeleteOutlined, EditOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons';
 import NoDataResult from '../../../commonComponents/NoDataResult';
-import Notification from '../../../commonComponents/Notification';
+import showNotification from '../../../commonComponents/Notification';
 import ExperienceService from "../../../services/jobExperienceService";
 import moment from 'moment';
 
@@ -45,7 +45,7 @@ export default function ResumeExperiences() {
         experienceService.saveJobExperience(experience).then(response => {
             if (response.data && response.data.success && response.status === 201) {
                 findAllJobExperiencesByResumeId(resume.id)
-                Notification.showNotification("success", "Tecrübe", "Ekleme işlemi başarılı.");
+                showNotification("success", "Tecrübe", "Ekleme işlemi başarılı.");
                 hideModal();
             }
         })
@@ -61,7 +61,7 @@ export default function ResumeExperiences() {
         experienceService.updateJobExperience(experience).then(response => {
             if (response.data && response.data.success && response.status === 200) {
                 findAllJobExperiencesByResumeId(resume.id)
-                Notification.showNotification("success", "Tecrübe", "Düzenleme işlemi başarılı.");
+                showNotification("success", "Tecrübe", "Düzenleme işlemi başarılı.");
                 hideModal();
             }
         })
@@ -75,7 +75,7 @@ export default function ResumeExperiences() {
         experienceService.deleteJobExperience(jobExperienceId).then(response => {
             if (response.data && response.data.success && response.status === 200) {
                 findAllJobExperiencesByResumeId(resume.id)
-                Notification.showNotification("success", "Tecrübe", "Silme işlemi başarılı.");
+                showNotification("success", "Tecrübe", "Silme işlemi başarılı.");
             }
         })
     }

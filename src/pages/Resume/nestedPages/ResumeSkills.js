@@ -3,7 +3,7 @@ import { Table, Tag, Button, Modal, Input } from 'antd';
 import { DeleteOutlined, EditOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons';
 import SkillService from '../../../services/skillService';
 import NoDataResult from '../../../commonComponents/NoDataResult';
-import Notification from '../../../commonComponents/Notification';
+import showNotification from '../../../commonComponents/Notification';
 import { useSelector } from 'react-redux';
 
 
@@ -71,7 +71,7 @@ export default function JobSeekerSkill() {
         skillService.saveSkill(newSkill).then(response => {
             if (response.data.success && response.status === 201) {
                 findAllSkillByResumeId(resume.id);
-                Notification.showNotification("success", "Yetenek", "Ekleme işlemi başarılı.");
+                showNotification("success", "Yetenek", "Ekleme işlemi başarılı.");
                 setSkillName("");
                 hideModal();
             }
@@ -86,7 +86,7 @@ export default function JobSeekerSkill() {
         skillService.deleteSkill(skillId).then(response => {
             if (response.data.success && response.status === 200) {
                 findAllSkillByResumeId(resume.id);
-                Notification.showNotification("success", "Yetenek", "Silme işlemi başarılı.");
+                showNotification("success", "Yetenek", "Silme işlemi başarılı.");
             }
         })
     }
@@ -102,7 +102,7 @@ export default function JobSeekerSkill() {
         var skill = Object.assign({}, selectedSkill, { skillName: skillName })
         skillService.updateSkill(skill).then(response => {
             if (response.data.success && response.status === 200) {
-                Notification.showNotification("success", "Yetenek", "Düzenleme işlemi başarılı.");
+                showNotification("success", "Yetenek", "Düzenleme işlemi başarılı.");
                 findAllSkillByResumeId(resume.id);
                 hideModal();
             }

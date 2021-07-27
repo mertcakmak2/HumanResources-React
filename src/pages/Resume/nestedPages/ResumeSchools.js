@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Table, DatePicker, Button, Modal, Input, Checkbox } from 'antd';
 import { DeleteOutlined, EditOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons';
 import NoDataResult from '../../../commonComponents/NoDataResult';
-import Notification from '../../../commonComponents/Notification';
+import showNotification from '../../../commonComponents/Notification';
 import SchoolService from '../../../services/schoolService';
 import moment from 'moment';
 
@@ -79,7 +79,7 @@ export default function ResumeSchools() {
         newSchool.resumeId = resume.id
         schoolService.saveSchool(newSchool).then(response => {
             if (response.data && response.data.success && response.status === 201) {
-                Notification.showNotification("success", "Eğitim Bilgisi", "Ekleme işlemi başarılı.");
+                showNotification("success", "Eğitim Bilgisi", "Ekleme işlemi başarılı.");
                 findAllSchoolByResumeId(resume.id);
                 hideModal();
             }
@@ -93,7 +93,7 @@ export default function ResumeSchools() {
     const deleteSchool = (schoolId) => {
         schoolService.deleteSchool(schoolId).then(response => {
             if (response.data && response.data.success && response.status === 200) {
-                Notification.showNotification("success", "Eğitim Bilgisi", "Silme işlemi başarılı.");
+                showNotification("success", "Eğitim Bilgisi", "Silme işlemi başarılı.");
                 findAllSchoolByResumeId(resume.id);
                 hideModal();
             }
@@ -109,7 +109,7 @@ export default function ResumeSchools() {
     const updateSchool = () => {
         schoolService.updateSchool(school).then(response => {
             if (response.data && response.data.success && response.status === 200) {
-                Notification.showNotification("success", "Eğitim Bilgisi", "Düzenleme işlemi başarılı.");
+                showNotification("success", "Eğitim Bilgisi", "Düzenleme işlemi başarılı.");
                 findAllSchoolByResumeId(resume.id);
                 hideModal();
             }

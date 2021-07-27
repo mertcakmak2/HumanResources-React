@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Table, Button, Modal, Input, InputNumber } from 'antd';
 import { DeleteOutlined, EditOutlined, PlusOutlined, RedoOutlined } from '@ant-design/icons';
 import NoDataResult from '../../../commonComponents/NoDataResult';
-import Notification from '../../../commonComponents/Notification';
+import showNotification from '../../../commonComponents/Notification';
 import LanguageService from '../../../services/languageService';
 
 let languageService = new LanguageService();
@@ -41,7 +41,7 @@ export default function ResumeLanguages() {
         languageService.saveLanguage(language).then(response => {
             if (response.data && response.data.success && response.status === 201) {
                 findAllLanguageByResumeId(resume.id)
-                Notification.showNotification("success", "Yabancı Dil", "Ekleme işlemi başarılı.");
+                showNotification("success", "Yabancı Dil", "Ekleme işlemi başarılı.");
                 hideModal();
             }
         })
@@ -57,7 +57,7 @@ export default function ResumeLanguages() {
         languageService.updateLanguage(language).then(response => {
             if (response.data && response.data.success && response.status === 200) {
                 findAllLanguageByResumeId(resume.id);
-                Notification.showNotification("success", "Yabancı Dil", "Düzenleme işlemi başarılı.");
+                showNotification("success", "Yabancı Dil", "Düzenleme işlemi başarılı.");
                 hideModal();
             }
         })
@@ -71,7 +71,7 @@ export default function ResumeLanguages() {
         languageService.deleteLanguage(languageId).then(response => {
             if (response.data && response.data.success && response.status === 200) {
                 findAllLanguageByResumeId(resume.id)
-                Notification.showNotification("success", "Yabancı Dil", "Silme işlemi başarılı.");
+                showNotification("success", "Yabancı Dil", "Silme işlemi başarılı.");
             }
         })
     }

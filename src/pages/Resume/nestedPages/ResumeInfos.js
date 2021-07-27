@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Image, Button, Modal, Form, Input } from 'antd';
 import { GithubOutlined, LinkedinOutlined, EditOutlined } from '@ant-design/icons';
 import UploadImage from '../../../commonComponents/UploadFile';
-import Notification from '../../../commonComponents/Notification';
+import showNotification from '../../../commonComponents/Notification';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import JobSeekerService from '../../../services/jobSeekerService';
@@ -23,7 +23,7 @@ export default function JobSeekerInfo() {
 
     const navToSocialLink = (url, socialMedia) => {
         if(!url) {
-            Notification.showNotification("error", socialMedia, "Üzgünüz "+socialMedia+" adresi bulunamadı")
+            showNotification("error", socialMedia, "Üzgünüz "+socialMedia+" adresi bulunamadı")
             return;
         }
         window.open(url)
