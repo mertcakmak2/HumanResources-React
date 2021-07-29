@@ -12,8 +12,8 @@ export default function EditInfoModal({ visible }) {
         if (!values.firstName) errors.firstName = " boş bırakılamaz";
         if (!values.lastName) errors.lastName = "Soyisim alanı boş bırakılamaz";
         if (!values.email) errors.email = "Email alanı boş bırakılamaz";
-        if (!values.position) errors.position = "Email alanı boş bırakılamaz";
-        if (!values.mobilePhone) errors.mobilePhone = "Email alanı boş bırakılamaz";
+        if (!values.position) errors.position = "Pozisyon alanı boş bırakılamaz";
+        if (!values.mobilePhone) errors.mobilePhone = "Telefon alanı boş bırakılamaz";
 
         return errors;
     };

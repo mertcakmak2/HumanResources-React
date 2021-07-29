@@ -59,9 +59,7 @@ export default function Resume() {
                 dispatch(setResume(response.data.data));
             }
         })
-        // var resume = { id:1,jobSeekerId:2, github:"github.com"}
-        // dispatch(setResume(resume));
-    }, [])
+    },[])
 
     return (
         <div>

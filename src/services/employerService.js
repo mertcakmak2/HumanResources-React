@@ -24,4 +24,14 @@ export default class EmployerService {
         })
     }
 
+    findEmployerById(id) {
+        var url = EMPLOYERS_URL+"/findById/"+id; 
+
+        return new Promise((resolve) => {
+            axiosProvider.getMethod(url).then(res => {
+                resolve(res);
+            })
+        })
+    }
+
 }

@@ -16,6 +16,7 @@ const Resume = React.lazy(() => import("../pages/Resume/Resume"))
 const SystemUserInfo = React.lazy(() => import("../pages/SystemUser/SystemUserInfo"))
 const NotFound = React.lazy(() => import('../pages/NotFound/NotFound'))
 const Account = React.lazy(() => import('../pages/Account/Account'))
+const EmployerInfo = React.lazy(() => import('../pages/Employer/EmployerInfo/EmployerInfo'));
 
 export default function Dashboard() {
     return (
@@ -34,6 +35,10 @@ export default function Dashboard() {
 
                     <PrivateRoute path="/employer-list">
                         <EmployerList />
+                    </PrivateRoute>
+
+                    <PrivateRoute path="/employer/:id">
+                        <EmployerInfo />
                     </PrivateRoute>
 
                     <PrivateRoute path="/job-add">
@@ -63,19 +68,6 @@ export default function Dashboard() {
                     <Route path="*">
                         <NotFound />
                     </Route>
-
-                    {/* <Route path="/job-add" component={JobAdd} /> */}
-                    {/* <Route path="/job-list" component={JobList} /> */}
-
-                    {/* <Route path="/job-position-list" component={JobPositionList} /> */}
-
-                    {/* <Route path="/employer-list" component={EmployerList} /> */}
-
-                    {/* <Route path="/job-seeker-list" component={JobSeekerList} /> */}
-                    {/* <Route path="/job-seeker/:id/resume" component={Resume} /> */}
-
-                    {/* <Route path="/system-user/:id" component={SystemUserInfo} /> */}
-
 
                 </Switch>
 

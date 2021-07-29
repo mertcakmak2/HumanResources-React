@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import EmployerService from '../services/employerService'
 import NoData from '../commonComponents/NoDataComponent';
 import { Table, Space, Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 export default function EmployerList() {
 
@@ -35,9 +36,9 @@ export default function EmployerList() {
         {
             title: 'Aksiyon',
             key: 'action',
-            render: (text, record) => (
+            render: (employer) => (
                 <Space size="middle">
-                    <Button type="link">İletişim</Button>
+                    <Link to={"/employer/"+employer.id}><Button type="link">İletişim</Button></Link>
                 </Space>
             ),
         },
