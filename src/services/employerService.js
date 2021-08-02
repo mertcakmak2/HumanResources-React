@@ -34,4 +34,14 @@ export default class EmployerService {
         })
     }
 
+    approveForUpdateEmployerCompany(employerCompanyInfo, employerId) {
+        var url = EMPLOYERS_URL+"/update/approve?employerId="+employerId;
+
+        return new Promise((resolve) => {
+            axiosProvider.postMethod(url, employerCompanyInfo).then(res => {
+                resolve(res);
+            })
+        })
+    }
+
 }

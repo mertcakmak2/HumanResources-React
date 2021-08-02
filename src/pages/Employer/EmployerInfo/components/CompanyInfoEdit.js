@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Drawer, Form, Button, Col, Row, Input } from 'antd';
 
-export default function CompanyInfoEdit({ visible, setVisible, oldEmployer, displayInfoAlert }) {
+export default function CompanyInfoEdit({ visible, setVisible, employerCompany, updateEmployerCompany }) {
 
     const [employer, setEmployer] = useState({});
 
     useEffect(() => {
-        setEmployer(oldEmployer)
-    }, [oldEmployer])
+        setEmployer(employerCompany)
+    }, [employerCompany])
 
-    const updateCompanyInfo = () => {
-        console.log(employer);
-        //requesti burda at
-
-    }
+    const updateCompanyInfo = () => updateEmployerCompany(employer)
 
     return (
         <Drawer
@@ -46,7 +42,7 @@ export default function CompanyInfoEdit({ visible, setVisible, oldEmployer, disp
                     <Col span={24}>
                         <Form.Item
                             label="Web Adresi">
-                            <Input value={employer.companyWebSite} placeholder="Web sitesini giriniz.." />
+                            <Input value={employer.companyWebSite} onChange={(e) => setEmployer({...employer, companyWebSite:e.target.value})} placeholder="Web sitesini giriniz.." />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -54,15 +50,7 @@ export default function CompanyInfoEdit({ visible, setVisible, oldEmployer, disp
                     <Col span={24}>
                         <Form.Item
                             label="Email Adresi">
-                            <Input value={employer.email} placeholder="Email adresini giriniz.." />
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Row gutter={24}>
-                    <Col span={24}>
-                        <Form.Item
-                            label="Telefon Numarası">
-                            <Input value={employer.mobilePhone} placeholder="Telefon numarasını giriniz.." />
+                            <Input value={employer.email} onChange={(e) => setEmployer({...employer, email:e.target.value})} placeholder="Email adresini giriniz.." />
                         </Form.Item>
                     </Col>
                 </Row>

@@ -10,6 +10,9 @@ import JobService from '../../../services/jobService';
 
 const { TabPane } = Tabs;
 
+let employerService = new EmployerService();
+let jobService = new JobService();
+
 export default function EmployerInfo() {
 
     const { id } = useParams();
@@ -19,8 +22,6 @@ export default function EmployerInfo() {
     const [drawerVisible, setDrawerVisible] = useState(false)
 
     useEffect(() => {
-        let employerService = new EmployerService();
-        let jobService = new JobService();
         employerService.findEmployerById(id).then(response => {
             if (response.data.success && response.status === 200) {
                 var employer = response.data.data
@@ -34,9 +35,18 @@ export default function EmployerInfo() {
         })
     }, [])
 
-    const handleVisibleChange = (value) => {
-        setDrawerVisible(value);
+    const approveForUpdateEmployerCompany = ({companyName, companyWebSite, email}) => {
+        var company = {
+            companyName,
+            companyWebSite,
+            companyEmail: email
+        }
+        employerService.approveForUpdateEmployerCompany(company).then(response => {
+            console.log(response);
+        })
     }
+
+    const handleVisibleChange = (value) => setDrawerVisible(value);
 
     return (
         <div>
@@ -57,16 +67,15 @@ export default function EmployerInfo() {
                 </div>
 
                 <Tabs defaultActiveKey="1">
-                    <TabPane
-                        tab={<span><Icon disabled name='factory' /> Şirket Bilgileri </span>}
+
+                    <TabPane tab={<span><Icon disabled name='factory' /> Şirket Bilgileri </span>}
                         key="1">
 
                         <CompanyDescription employer={employer} />
 
                     </TabPane>
-                    <TabPane
-                        tab={<span> <Icon disabled name='announcement' /> İş İlanları </span>}
-                        key="2" >
+
+                    <TabPane tab={<span> <Icon disabled name='announcement' /> İş İlanları </span>} key="2" >
 
                         <CompanyJobList jobs={jobs} />
 
@@ -76,12 +85,11 @@ export default function EmployerInfo() {
 
             </Segment>
 
-            {/* {employer.id
-                ? <CompanyInfoEdit visible={drawerVisible} setVisible={handleVisibleChange} oldEmployer={employer} />
-                : null
-            } */}
-
-            <CompanyInfoEdit visible={drawerVisible} setVisible={handleVisibleChange} oldEmployer={employer} />
+            <CompanyInfoEdit 
+                visible={drawerVisible} 
+                setVisible={handleVisibleChange}
+                employerCompany={employer} 
+                updateEmployerCompany={approveForUpdateEmployerCompany} />
 
         </div>
     )
