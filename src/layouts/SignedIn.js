@@ -1,18 +1,27 @@
 import React from 'react'
 import { Dropdown, Menu, Image } from 'semantic-ui-react'
-import { Badge } from 'antd';
+import { useSelector } from 'react-redux';
+import Notifications from './Notifications';
+import { useHistory } from 'react-router-dom';
 
 export default function SignedIn({ signOut }) {
+
+    const history = useHistory();
+    const user = useSelector(state => state.user)
+
+    const redirectToProfile = () => {
+        var redirectLink = user.userType == "jobSeeker" ? "/job-seeker/"+user.id+"/resume" : "/employer/"+user.id
+        history.push(redirectLink);
+    }
+
     return (
-        <div>
+        <div style={{ display: "flex" }}>
+            <Notifications />
             <Menu.Item style={{ marginTop: '3px' }}>
-                <Badge dot>
-                    <Image avatar spaced="right" src="https://media-exp3.licdn.com/dms/image/C5603AQGNAsvOJNKEuA/profile-displayphoto-shrink_200_200/0/1567248725734?e=1628726400&v=beta&t=Xdw-ufseLPwz1ClCFUScYgVHHwNS8m9Ys-o6r6SnCZE" />
-                </Badge>
+                <Image avatar spaced="right" src={user?.profilePicture?.picturePath} />
                 <Dropdown pointing="top left" text="Mert">
                     <Dropdown.Menu>
-                        <Dropdown.Item text="Profil" icon="user" />
-                        <Dropdown.Item text="Bildirimler" icon="bell" />
+                        <Dropdown.Item text="Profil" onClick={ redirectToProfile } icon="user" />
                         <Dropdown.Item onClick={signOut} text="Çıkış Yap" icon="sign-out" />
                     </Dropdown.Menu>
                 </Dropdown>

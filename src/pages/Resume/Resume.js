@@ -4,7 +4,9 @@ import ResumeInfos from './nestedPages/ResumeInfos';
 import ResumeSkills from './nestedPages/ResumeSkills';
 import ResumeLanguages from './nestedPages/ResumeLanguages';
 import ResumeExperiences from './nestedPages/ResumeExperiences';
+import NotificationService from '../../services/notificationService';
 import ResumeSchools from './nestedPages/ResumeSchools';
+import NoDataResult from '../../commonComponents/NoDataResult';
 import { Grid, Segment } from 'semantic-ui-react'
 import { Card, Avatar, Typography } from 'antd';
 import ResumeService from '../../services/resumeService';
@@ -15,12 +17,14 @@ let { Meta } = Card;
 const { Title } = Typography;
 
 let resumeService = new ResumeService();
+let notificationService = new NotificationService();
 
 export default function Resume() {
 
     const dispatch = useDispatch();
 
     const resume = useSelector(state => state.resume)
+    const myUser = useSelector(state => state.user)
 
     let { id } = useParams();
     let { path } = useRouteMatch();
@@ -54,62 +58,75 @@ export default function Resume() {
     ]
 
     useEffect(() => {
+        console.log(resume);
         resumeService.findByJobSeekerId(id).then(response => {
             if (response.data && response.data.success && response.status === 200) {
                 dispatch(setResume(response.data.data));
+                var notification = {
+                    "fromUserEmail": myUser.email,
+                    "toUserEmail": response.data.data.jobSeeker.email
+                }
+                if (myUser.email !== response.data.data.jobSeeker.email)
+                    notificationService.sendNotification(notification).then(response => { })
             }
         })
-    },[])
+    }, [])
 
     return (
         <div>
-            <Grid columns={2} >
-                <Grid.Row >
-                    <Grid.Column width={5}>
+            {resume?.jobSeeker
+                ?
+                <Grid columns={2} >
+                    <Grid.Row >
+                        <Grid.Column width={5}>
 
-                        <Card size="small" style={{ width: 260 }} >
-                            {
-                                resume?.jobSeeker
-                                    ? <>
-                                        <Title level={2}>{resume?.jobSeeker?.firstName + " " + resume?.jobSeeker?.lastName}</Title>
-                                        <Title level={5}>{resume?.jobSeeker?.email}</Title>
-                                    </>
-                                    : null
-                            }
-                        </Card>
+                            <Card size="small" style={{ width: 260 }} >
+                                {
+                                    resume?.jobSeeker
+                                        ? <>
+                                            <Title level={2}>{resume?.jobSeeker?.firstName + " " + resume?.jobSeeker?.lastName}</Title>
+                                            <Title level={5}>{resume?.jobSeeker?.email}</Title>
+                                        </>
+                                        : null
+                                }
+                            </Card>
 
-                        {cardList.map((card) => (
-                            <Link to={card.link} key={card.link}>
-                                <Card size="small" hoverable={true} style={{ width: 260, marginTop: 16 }} >
-                                    <Meta
-                                        avatar={
-                                            <Avatar src={card.avatarSrc} />
-                                        }
-                                        title={card.title}
-                                    />
-                                </Card>
-                            </Link>
-                        ))}
+                            {cardList.map((card) => (
+                                <Link to={card.link} key={card.link}>
+                                    <Card size="small" hoverable={true} style={{ width: 260, marginTop: 16 }} >
+                                        <Meta
+                                            avatar={
+                                                <Avatar src={card.avatarSrc} />
+                                            }
+                                            title={card.title}
+                                        />
+                                    </Card>
+                                </Link>
+                            ))}
 
-                    </Grid.Column>
+                        </Grid.Column>
 
-                    <Grid.Column width={11} >
-                        <Segment>
-                            <Switch>
-                                <Route exact path={path}>
-                                    <ResumeInfos />
-                                </Route>
+                        <Grid.Column width={11} >
+                            <Segment>
+                                <Switch>
+                                    <Route exact path={path}>
+                                        <ResumeInfos />
+                                    </Route>
 
-                                <Route path={path + "/info"} component={ResumeInfos} />
-                                <Route path={path + "/skills"} component={ResumeSkills} />
-                                <Route path={path + "/languages"} component={ResumeLanguages} />
-                                <Route path={path + "/experiences"} component={ResumeExperiences} />
-                                <Route path={path + "/schools"} component={ResumeSchools} />
-                            </Switch>
-                        </Segment>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
+                                    <Route path={path + "/info"} component={ResumeInfos} />
+                                    <Route path={path + "/skills"} component={ResumeSkills} />
+                                    <Route path={path + "/languages"} component={ResumeLanguages} />
+                                    <Route path={path + "/experiences"} component={ResumeExperiences} />
+                                    <Route path={path + "/schools"} component={ResumeSchools} />
+                                </Switch>
+                            </Segment>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                : <NoDataResult title="Malesef" status="404" description="Böyle bir kullanıcı bulunamadı." />
+
+            }
+
         </div>
 
     )

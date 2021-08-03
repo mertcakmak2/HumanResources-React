@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import EmployerService from '../services/employerService'
 import NoData from '../commonComponents/NoDataComponent';
-import { Table, Space, Button } from 'antd';
+import { Table, Space, Button, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 
 export default function EmployerList() {
@@ -59,10 +59,13 @@ export default function EmployerList() {
     return (
         <div style={{ textAlign: 'center' }}>
             <h2>Employer List</h2>
-            {employers.length
-                ? <Table columns={columns} dataSource={employers} />
-                : <NoData />
-            }
+
+            <Spin tip="Loading..." spinning={!employers.length}>
+                {employers.length
+                    ? <Table columns={columns} dataSource={employers} />
+                    : <NoData />
+                }
+            </Spin>
         </div>
     )
 }

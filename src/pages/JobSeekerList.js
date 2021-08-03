@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import JobSeekerService from "../services/jobSeekerService"
 import NoData from '../commonComponents/NoDataComponent';
-import { Table, Space, Button } from 'antd';
+import { Table, Space, Button, Spin } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 export default function JobSeekerList() {
@@ -65,10 +65,12 @@ export default function JobSeekerList() {
     return (
         <div style={{ textAlign: 'center' }}>
             <h2>Job Seeker List</h2>
-            {jobSeekers.length
-                ? <Table columns={columns} dataSource={jobSeekers} />
-                : <NoData />
-            }
+            <Spin tip="Loading..." spinning={!jobSeekers.length}>
+                {jobSeekers.length
+                    ? <Table columns={columns} dataSource={jobSeekers} />
+                    : <NoData />
+                }
+            </Spin>
         </div>
     )
 }

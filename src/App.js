@@ -7,6 +7,7 @@ import moment from 'moment';
 import { Container } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { setAuthenticate } from './store/actions/authenticateActions';
+import { setUser } from './store/actions/userActions';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -25,8 +26,11 @@ function App() {
       var isExpired = moment(tokenExpired).isBefore(now)
       
       if (isExpired) clearAuthData();
-      else dispatch(setAuthenticate(true))
-
+      else {
+        var user = JSON.parse(localStorage.getItem("user"));
+        dispatch(setUser(user))
+        dispatch(setAuthenticate(true))
+      }
     } else clearAuthData();
     
     setRender(true)

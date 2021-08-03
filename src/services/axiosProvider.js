@@ -80,7 +80,8 @@ function exceptionHandler(error) {
 function sessionManagement(errorResponse){
     if(errorResponse?.status === 401){
         localStorage.removeItem("jwt");
-        localStorage.removeItem("user")
+        localStorage.removeItem("user");
+        window.location.reload();
     }
 }
 

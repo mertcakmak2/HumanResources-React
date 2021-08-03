@@ -34,6 +34,12 @@ export default function Login() {
 
     const login = () => {
 
+        if( !loginInfo.type ){
+            alert("Kullanıcı tipi zorunludur..")
+            return
+        }
+         
+
         authService.login(loginInfo).then(response => {
             if (response.data && response.status === 200) {
                 localStorage.setItem("jwt", response.data)
