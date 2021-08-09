@@ -31,13 +31,15 @@ export default function Notifications() {
     }
 
     const findNotificationsByUserId = (userId) => {
-        var paginationRequest = {...pagination, userId: userId}
-        notificationService.findNotificationsByUserId(paginationRequest).then(response => {
-            if (response.status === 200 && response.data.success) {
-                setNotifications(response.data.data)
-                setTotalData(response.data.totalData)
-            }
-        })
+        if(userId){
+            var paginationRequest = {...pagination, userId: userId}
+            notificationService.findNotificationsByUserId(paginationRequest).then(response => {
+                if (response.status === 200 && response.data.success) {
+                    setNotifications(response.data.data)
+                    setTotalData(response.data.totalData)
+                }
+            })
+        }
     }
 
     return (

@@ -19,7 +19,7 @@ export default function SignedIn({ signOut }) {
             <Notifications />
             <Menu.Item style={{ marginTop: '3px' }}>
                 <Image avatar spaced="right" src={user?.profilePicture?.picturePath} />
-                <Dropdown pointing="top left" text="Mert">
+                <Dropdown pointing="top left" text={user.firstName}>
                     <Dropdown.Menu>
                         <Dropdown.Item text="Profil" onClick={ redirectToProfile } icon="user" />
                         <Dropdown.Item onClick={signOut} text="Çıkış Yap" icon="sign-out" />

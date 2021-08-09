@@ -7,6 +7,7 @@ import CompanyJobList from './components/CompanyJobList';
 import CompanyInfoEdit from './components/CompanyInfoEdit';
 import EmployerService from '../../../services/employerService';
 import JobService from '../../../services/jobService';
+import { useSelector } from 'react-redux';
 
 const { TabPane } = Tabs;
 
@@ -16,8 +17,9 @@ let jobService = new JobService();
 export default function EmployerInfo() {
 
     const { id } = useParams();
+    const user = useSelector(state => state.user)
 
-    const [employer, setEmployer] = useState({})
+    const [employer, setEmployer] = useState({}) 
     const [jobs, setJobs] = useState([])
     const [drawerVisible, setDrawerVisible] = useState(false)
 
@@ -41,7 +43,7 @@ export default function EmployerInfo() {
             companyWebSite,
             companyEmail: email
         }
-        employerService.approveForUpdateEmployerCompany(company).then(response => {
+        employerService.approveForUpdateEmployerCompany(company, id).then(response => {
             console.log(response);
         })
     }
@@ -63,7 +65,10 @@ export default function EmployerInfo() {
                         width={200}
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbfvty6OkyuZ4caDe2Gn4uQ8p3OWpT0wLtrQ&usqp=CAU" />
 
-                    <Button onClick={() => setDrawerVisible(true)} style={{ marginTop: "2em" }} type="primary">Bilgileri Düzenle</Button>
+                    {user.id == id && user.userType == "employer" 
+                        ? <Button onClick={() => setDrawerVisible(true)} style={{ marginTop: "2em" }} type="primary">Bilgileri Düzenle</Button>
+                        : null
+                    }
                 </div>
 
                 <Tabs defaultActiveKey="1">

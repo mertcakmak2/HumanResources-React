@@ -49,7 +49,7 @@ export default function Login() {
                 getUser.then(userResponse => {
                     if (userResponse.data.success && userResponse.status === 200) {
                         dispatch(setAuthenticate(true))
-                        dispatch(setUser(userResponse.data.data))
+                        dispatch(setUser({...userResponse.data.data, userType: loginInfo.type}))
                         localStorage.setItem("user", JSON.stringify({ ...userResponse.data.data, userType: loginInfo.type }))
                         history.push(localStorage.getItem("hash") ? localStorage.getItem("hash") : "/")
                         localStorage.removeItem("hash")

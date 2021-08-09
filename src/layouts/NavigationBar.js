@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Menu, Segment, Icon } from "semantic-ui-react";
 import SignedIn from './SignedIn';
 import SignedOut from './SignedOut';
@@ -12,9 +12,15 @@ export default function NavigationBar() {
     const history = useHistory();
 
     const isAuthenticated = useSelector(state => state.isAuthenticate)
+    const user = useSelector(state => state.user)
     const dispatch = useDispatch();
 
     const [activeMenuItem, setActiveMenuItem] = useState(history.location.pathname)
+    const [isEmployer, setIsEmployer] = useState(false)
+
+    useEffect(() => {
+        setIsEmployer(user.userType == "employer" ? true : false)
+    }, [user])
 
     function handleSignOut() {
         localStorage.removeItem("jwt")
@@ -34,7 +40,7 @@ export default function NavigationBar() {
 
     function onNavigate(route) {
         setActiveMenuItem(route);
-        if(!isAuthenticated) localStorage.setItem("hash", route);
+        if (!isAuthenticated) localStorage.setItem("hash", route);
         history.push(route);
     }
 
@@ -59,11 +65,13 @@ export default function NavigationBar() {
                             <Icon name='users' />
                             İş Arayanlar
                         </Menu.Item>
-                        <Menu.Item active={activeMenuItem === "/job-add"} key="/job-add" onClick={() => onNavigate("/job-add")}>
-                            <Icon name='announcement' />
-                            İş İlanı Yayınla
-                        </Menu.Item>
-
+                        {isEmployer 
+                            ? <Menu.Item active={activeMenuItem === "/job-add"} key="/job-add" onClick={() => onNavigate("/job-add")}>
+                                <Icon name='announcement' />
+                                İş İlanı Yayınla
+                              </Menu.Item>
+                            : null
+                        }
                         <Menu.Menu position="right">
 
                             {isAuthenticated
