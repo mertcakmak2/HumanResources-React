@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Form, Input, Button, Checkbox, Select, Alert } from 'antd';
 import { Card, Grid } from 'semantic-ui-react'
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import Notification from "../../commonComponents/Notification";
 import AuthService from '../../services/authService';
 import EmployerService from '../../services/employerService';
 import JobSeekerService from '../../services/jobSeekerService';
@@ -9,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAuthenticate } from "../../store/actions/authenticateActions";
 import { setUser } from "../../store/actions/userActions";
 import { useHistory } from 'react-router-dom';
+
 const { Option } = Select;
 
 export default function Login() {
@@ -32,13 +34,16 @@ export default function Login() {
         setLoginInfo({ ...loginInfo, type })
     }
 
+    const handleClearUserType = () => {
+        setLoginInfo({...loginInfo, type:""})
+    }
+
     const login = () => {
 
         if( !loginInfo.type ){
-            alert("Kullanıcı tipi zorunludur..")
+            Notification("error", "Hata", "Kullanıcı Tipi Boş Geçilemez")
             return
         }
-         
 
         authService.login(loginInfo).then(response => {
             if (response.data && response.status === 200) {
@@ -96,7 +101,7 @@ export default function Login() {
                             </Form.Item>
 
                             <Form.Item>
-                                <Select onChange={handleUserTypeChange} style={{ width: 120 }} allowClear>
+                                <Select onClear={handleClearUserType} onChange={handleUserTypeChange} style={{ width: 120 }} allowClear>
                                     <Option value="jobSeeker">İş Arayan</Option>
                                     <Option value="employer">İş Veren</Option>
                                 </Select>
