@@ -1,26 +1,26 @@
-version: "3.8"
-
-services:
-  react-app:
-    container_name: react-app
-    image: react-app
-    build:
-      context: .
-      target: production
-    volumes:
-      - ./src:/app/src
-    ports:
-      - 3000:3000
-
 # version: "3.8"
 
 # services:
-#   app:
+#   react-app:
 #     container_name: react-app
 #     image: react-app
 #     build:
 #       context: .
 #       target: production
+#     volumes:
+#       - ./src:/app/src
 #     ports:
-#     - "80:80"
-#     - "443:443"
+#       - 3000:3000
+
+# version: "3.8"
+
+services:
+  app:
+    container_name: react-app
+    image: react-app
+    build:
+      context: .
+      target: production
+    ports:
+    - "80:80"
+    - "443:443"
